@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/locks/{lock}/codes', [LockController::class, 'storeCode'])->name('locks.codes.store');
     Route::put('/locks/{lock}/codes/{code}', [LockController::class, 'updateCode'])->name('locks.codes.update');
     Route::delete('/locks/{lock}/codes/{code}', [LockController::class, 'destroyCode'])->name('locks.codes.destroy');
+    Route::post('/locks/{lock}/codes/{code}/early', [LockController::class, 'early'])->name('locks.codes.early');
+    Route::post('/locks/{lock}/codes/{code}/late', [LockController::class, 'late'])->name('locks.codes.late');
 
     // Alerts
     Route::get('/alerts', [AlertController::class, 'index'])->name('alerts.index');

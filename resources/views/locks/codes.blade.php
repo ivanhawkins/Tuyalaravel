@@ -122,6 +122,20 @@
                                 {{ isset($code['invalid_time']) ? date('d/m/Y H:i', $code['invalid_time']) : 'N/A' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                    <form action="{{ route('locks.codes.early', [$lock, $code['id']]) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-green-600 hover:text-green-900 font-bold" title="Adelantar entrada a AHORA">
+                                            Early
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('locks.codes.late', [$lock, $code['id']]) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-orange-600 hover:text-orange-900 font-bold" title="Retrasar salida a las 14:00">
+                                            Late
+                                        </button>
+                                    </form>
+
                                     <button
                                         onclick="openModalWithData('{{ $code['pin_visible'] ?? '' }}', '{{ $code['name'] ?? '' }}', '{{ route('locks.codes.destroy', [$lock, $code['id']]) }}')"
                                         class="text-blue-600 hover:text-blue-900">

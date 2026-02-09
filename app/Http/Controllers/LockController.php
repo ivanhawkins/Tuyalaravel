@@ -174,6 +174,88 @@ class LockController extends Controller
         return back()->with('error', 'La modificación de códigos está desactivada.');
     }
 
+    public function early(Lock $lock, string $codeId)
+    {
+        return $this->atomicReschedule($lock, $codeId, function ($startDate, $endDate) {
+            return [
+                'start' => now(), // Start NOW
+                'end' => $endDate // Keep same end
+            ];
+        });
+    }
+
+    public function late(Lock $lock, string $codeId)
+    {
+        return $this->atomicReschedule($lock, $codeId, function ($startDate, $endDate) {
+            // End at 14:00 on the same end day
+            $newEnd = \Carbon\Carbon::parse($endDate)->setTime(14, 0, 0);
+            return [
+                'start' => $startDate, // Keep same start
+                'end' => $newEnd
+            ];
+        });
+    }
+
+    /**
+     * Helper to atomically delete and recreate a code with new dates.
+     */
+    private function atomicReschedule(Lock $lock, string $codeId, callable $dateModifier)
+    {
+        try {
+            // 1. Find Local Code
+            $localCode = \App\Models\LockCode::where('lock_id', $lock->id)
+                ->where('tuya_password_id', $codeId)
+                ->firstOrFail();
+
+            // 2. Calculate New Dates
+            $dates = $dateModifier($localCode->start_date, $localCode->end_date);
+            $newStart = \Carbon\Carbon::parse($dates['start']);
+            $newEnd = \Carbon\Carbon::parse($dates['end']);
+
+            // 3. Delete Old (Tuya + Local)
+            $tuya = $this->getTuyaService($lock);
+            try {
+                $tuya->deleteTempPassword($lock->device_id, $codeId);
+            } catch (\Exception $e) {
+                // Ignore delete errors (maybe already gone)
+            }
+            $localCode->delete();
+
+            // 4. Create New (Tuya)
+            // Ensure 7 digits PIN
+            $pin = $localCode->pin;
+            if (strlen($pin) < 7) {
+                $pin = str_pad(mt_rand(0, 9999999), 7, '0', STR_PAD_LEFT);
+            }
+
+            $effectiveTime = $newStart->timestamp;
+            $invalidTime = $newEnd->timestamp;
+
+            $result = $tuya->createTempPassword(
+                $lock->device_id,
+                $pin,
+                $effectiveTime,
+                $invalidTime,
+                $localCode->name
+            );
+
+            // 5. Create New (Local)
+            \App\Models\LockCode::create([
+                'lock_id' => $lock->id,
+                'tuya_password_id' => $result['id'],
+                'name' => $localCode->name,
+                'pin' => $pin,
+                'start_date' => $newStart,
+                'end_date' => $newEnd,
+            ]);
+
+            return back()->with('success', 'Horario actualizado correctamente.');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al reprogramar: ' . $e->getMessage());
+        }
+    }
+
     public function destroyCode(Lock $lock, string $codeId)
     {
         try {
