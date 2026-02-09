@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Docker Instalado - Próximos Pasos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-green-500 to-blue-600 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-8">
+        <div class="text-center mb-8">
+            <div class="text-6xl mb-4">✅</div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">¡Docker Desktop Instalado!</h1>
+            <p class="text-gray-600">Ahora completa la configuración del sistema</p>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-lg font-medium text-green-800 mb-2">Docker Desktop ya está instalado</h3>
+                    <p class="text-sm text-green-700">La instalación se completó exitosamente. Ahora continúa con los
+                        siguientes pasos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-gray-900">📋 Pasos Finales (2 minutos)</h2>
+
+            <!-- Step 1 -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                <h3 class="font-bold text-blue-900 text-lg mb-2">1️⃣ Iniciar Docker Desktop</h3>
+                <div class="space-y-2 text-sm text-blue-800">
+                    <p>• Busca "Docker Desktop" en el menú de Windows</p>
+                    <p>• Haz click para abrirlo</p>
+                    <p>• Espera a ver el mensaje: <strong>"Docker Desktop is running"</strong></p>
+                    <p>• Verás un ícono de ballena 🐳 en la bandeja del sistema</p>
+                </div>
+                <div class="mt-3 p-3 bg-blue-100 rounded">
+                    <p class="text-xs text-blue-900">⏱️ Primera vez: puede tardar 2-3 minutos en arrancar</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-4">
+                <h3 class="font-bold text-purple-900 text-lg mb-2">2️⃣ Ejecutar Script de Configuración</h3>
+                <div class="space-y-2 mb-3">
+                    <p class="text-sm text-purple-800">Abre <strong>PowerShell</strong> (como Administrador) y ejecuta:
+                    </p>
+                    <div class="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
+                        <p>cd d:\proyectos\programasivan\Tuyalaravel</p>
+                        <p class="mt-2">.\setup.ps1</p>
+                    </div>
+                </div>
+                <div class="mt-3 p-3 bg-purple-100 rounded">
+                    <p class="text-xs text-purple-900">💡 El script configurará todo automáticamente (base de datos,
+                        dependencias, etc.)</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                <h3 class="font-bold text-green-900 text-lg mb-2">3️⃣ ¡Listo! Acceder al Sistema</h3>
+                <div class="space-y-2 text-sm text-green-800">
+                    <p>El se abrirá automáticamente en: <strong class="font-mono">http://localhost:8000</strong></p>
+                    <p class="mt-3"><strong>Credenciales de acceso:</strong></p>
+                    <div class="bg-white p-3 rounded border border-green-200 mt-2">
+                        <p class="font-mono">Email: admin@tuya.local</p>
+                        <p class="font-mono">Password: admin123</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alternative Method -->
+        <div class="mt-6 border-t pt-6">
+            <h3 class="font-bold text-gray-900 mb-3">🔧 Método Alternativo (Manual)</h3>
+            <details class="bg-gray-50 p-4 rounded">
+                <summary class="cursor-pointer font-semibold text-gray-700">Ver comandos manuales</summary>
+                <div class="mt-3 space-y-2 text-sm text-gray-700 font-mono">
+                    <p>1. docker-compose up -d</p>
+                    <p>2. docker-compose exec app composer install</p>
+                    <p>3. docker-compose exec app npm install</p>
+                    <p>4. docker-compose exec app php artisan key:generate</p>
+                    <p>5. docker-compose exec app php artisan migrate</p>
+                    <p>6. docker-compose exec app php artisan db:seed</p>
+                    <p>7. docker-compose exec app npm run build</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Help Section -->
+        <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded p-4">
+            <h4 class="font-bold text-yellow-900 mb-2">❓ ¿Problemas?</h4>
+            <div class="text-sm text-yellow-800 space-y-1">
+                <p>• Si PowerShell no permite ejecutar scripts: <code
+                        class="bg-yellow-100 px-2 py-1 rounded">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</code>
+                </p>
+                <p>• Si Docker no arranca: Reinicia el PC</p>
+                <p>• Ver documentación completa: <strong>QUICKSTART.md</strong></p>
+            </div>
+        </div>
+
+        <!-- Bottom Info -->
+        <div class="mt-8 text-center text-sm text-gray-500">
+            <p>📚 Archivos disponibles en: <code
+                    class="bg-gray-100 px-2 py-1 rounded">d:\proyectos\programasivan\Tuyalaravel\</code></p>
+            <p class="mt-2">• <strong>setup.ps1</strong> - Script automático</p>
+            <p>• <strong>README.md</strong> - Documentación completa</p>
+            <p>• <strong>API_DOCUMENTATION.md</strong> - API para CRM</p>
+        </div>
+    </div>
+</body>
+
+</html>

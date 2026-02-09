@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐳 Instalando Docker - Tuya Lock Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8">
+        <div class="text-center mb-8">
+            <div class="text-6xl mb-4 animate-pulse-slow">🐳</div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Instalando Docker Desktop</h1>
+            <p class="text-gray-600">Configurando el entorno para Tuya Lock Manager</p>
+        </div>
+
+        <div class="space-y-6">
+            <!-- Progress Steps -->
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-900">✅ Docker Desktop descargado</p>
+                        <p class="text-sm text-gray-500">Completado</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-900">✅ Instalación completada</p>
+                        <p class="text-sm text-gray-500">Docker Desktop instalado correctamente</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center animate-pulse-slow">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-900">⏳ Iniciando Docker Desktop...</p>
+                        <p class="text-sm text-gray-500">Esto puede tardar 1-2 minutos</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-400">Configurar proyecto Laravel</p>
+                        <p class="text-sm text-gray-400">Pendiente</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-400">Iniciar contenedores</p>
+                        <p class="text-sm text-gray-400">Pendiente</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-400">Crear base de datos</p>
+                        <p class="text-sm text-gray-400">Pendiente</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-400">🎉 ¡Sistema listo!</p>
+                        <p class="text-sm text-gray-400">Pendiente</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Info -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">Información importante</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Docker Desktop se está iniciando en segundo plano</li>
+                                <li>Verás el ícono de Docker (ballena) en la bandeja del sistema</li>
+                                <li>Espera a que muestre "Docker Desktop is running"</li>
+                                <li>La primera vez puede tardar 2-3 minutos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-yellow-800">Próximos pasos</h3>
+                        <div class="mt-2 text-sm text-yellow-700">
+                            <p>Una vez Docker Desktop esté corriendo, continuaré automáticamente con:</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1">
+                                <li>Configurar el archivo .env</li>
+                                <li>Construir los contenedores (PostgreSQL + Redis + Laravel)</li>
+                                <li>Instalar dependencias PHP y Node.js</li>
+                                <li>Crear la base de datos y usuario admin</li>
+                                <li>Abrir el sistema en tu navegador</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
