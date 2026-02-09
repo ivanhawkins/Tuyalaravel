@@ -66,9 +66,20 @@ class Lock extends Model
         return 'Sin asignar';
     }
 
-    public function getBatteryLevelAttribute(): ?int
+    public function getBatteryLevelAttribute(): string
     {
-        return $this->status_data['battery_level'] ?? null;
+        return $this->status_data['battery_state'] ?? 'unknown';
+    }
+
+    public function updateStatus(array $statusItems)
+    {
+        $data = $this->status_data ?? [];
+        foreach ($statusItems as $item) {
+            $data[$item['code']] = $item['value'];
+        }
+        $this->status_data = $data;
+        $this->last_sync = now();
+        $this->save();
     }
 
     public function getIsOnlineAttribute(): bool

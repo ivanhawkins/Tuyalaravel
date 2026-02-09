@@ -33,7 +33,30 @@
                                     {{ $lock->is_online ? 'Online' : 'Offline' }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $lock->battery }}%</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @php
+                                    $battery = $lock->battery_level;
+                                    $color = match ($battery) {
+                                        'high' => 'text-green-600',
+                                        'medium' => 'text-yellow-600',
+                                        'low' => 'text-red-600 font-bold',
+                                        'poweroff' => 'text-red-800 font-bold animate-pulse',
+                                        default => 'text-gray-400'
+                                    };
+                                    $label = match ($battery) {
+                                        'high' => 'Alta',
+                                        'medium' => 'Media',
+                                        'low' => 'Baja',
+                                        'poweroff' => 'CRÍTICA',
+                                        default => 'Desconocida'
+                                    };
+                                @endphp
+                                <span class="{{ $color }}">
+                                    <i
+                                        class="fas fa-battery-{{ $battery == 'high' ? 'full' : ($battery == 'medium' ? 'half' : ($battery == 'low' ? 'quarter' : 'empty')) }}"></i>
+                                    {{ $label }}
+                                </span>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                                 <a href="{{ route('locks.codes', ['lock' => $lock->id]) }}"
                                     class="text-indigo-600 hover:text-indigo-900">Códigos</a>

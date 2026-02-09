@@ -267,6 +267,36 @@ class TuyaApiService
     }
 
     /**
+     * Get device status (Battery, Online, etc.)
+     */
+    public function getDeviceStatus(string $deviceId): array
+    {
+        $accessToken = $this->getAccessToken();
+        $timestamp = (string) (time() * 1000);
+        $path = "/v1.0/iot-03/devices/{$deviceId}/status";
+
+        $sign = $this->generateSign('GET', $path, [], $timestamp, $accessToken);
+
+        $response = $this->client->get($path, [
+            'headers' => [
+                'client_id' => $this->clientId,
+                'access_token' => $accessToken,
+                'sign' => $sign,
+                't' => $timestamp,
+                'sign_method' => 'HMAC-SHA256',
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+
+        if (!$data['success'] ?? false) {
+            throw new \Exception('Failed to get device status: ' . ($data['msg'] ?? 'Unknown error'));
+        }
+
+        return $data['result'] ?? [];
+    }
+
+    /**
      * Get list of temporary passwords
      */
     public function getTempPasswords(string $deviceId, int $pageNo = 1, int $pageSize = 20): array

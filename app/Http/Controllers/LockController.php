@@ -11,6 +11,35 @@ class LockController extends Controller
     public function index()
     {
         $locks = Lock::with(['apartment.building', 'building'])->get();
+
+        // Optional: Auto-refresh status on load (could be slow if many locks)
+        // For now, let's do it to ensure battery is shown.
+        foreach ($locks as $lock) {
+            try {
+                $tuya = $this->getTuyaService($lock);
+                $status = $tuya->getDeviceStatus($lock->device_id);
+                $lock->updateStatus($status);
+
+                // Check for Low Battery Alert
+                $battery = $lock->battery_level; // 'high', 'medium', 'low', 'poweroff'
+                if (in_array($battery, ['low', 'poweroff'])) {
+                    // Create Alert if not exists recently?
+                    // For now simple log
+                    \App\Models\AlertLog::firstOrCreate([
+                        'lock_id' => $lock->id,
+                        'alert_code' => 'low_battery',
+                        'notified' => false
+                    ], [
+                        'alert_time' => now(),
+                        'raw_data' => ['level' => $battery]
+                    ]);
+                }
+
+            } catch (\Exception $e) {
+                // Ignore errors on index to not break the page (lock might be offline)
+            }
+        }
+
         return view('locks.index', compact('locks'));
     }
 
@@ -156,8 +185,8 @@ class LockController extends Controller
                 'tuya_password_id' => $result['id'] ?? null, // Tuya returns 'id'
                 'name' => $validated['name'],
                 'pin' => $validated['password'],
-                'start_date' => $validated['start_date'],
-                'end_date' => $validated['end_date'],
+                'start_date' => $startDate,
+                'end_date' => $endDate,
             ]);
 
             return redirect()->route('locks.codes', $lock)
@@ -177,9 +206,11 @@ class LockController extends Controller
     public function early(Lock $lock, string $codeId)
     {
         return $this->atomicReschedule($lock, $codeId, function ($startDate, $endDate) {
+            // Start at 12:00 on the same start day
+            $newStart = \Carbon\Carbon::parse($startDate)->setTime(12, 0, 0);
             return [
-                'start' => now(), // Start NOW
-                'end' => $endDate // Keep same end
+                'start' => $newStart,
+                'end' => $endDate
             ];
         });
     }
